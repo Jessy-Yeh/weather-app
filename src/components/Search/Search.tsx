@@ -10,6 +10,12 @@ interface IProps {
 export const Search = ({ getWeather, setLocation }: IProps) => {
   const [textInput, setTextInput] = useState("");
 
+  function searchWeather(e: any) {
+    if (e.code === "Enter") {
+      getWeather();
+    }
+  }
+
   function handleClick() {
     getWeather();
   }
@@ -21,7 +27,11 @@ export const Search = ({ getWeather, setLocation }: IProps) => {
 
   return (
     <div className={styles.container}>
-      <input className={styles.input} onChange={handleChange} />
+      <input
+        className={styles.input}
+        onKeyUp={searchWeather}
+        onChange={handleChange}
+      />
       <button className={styles.search} onClick={handleClick}>
         <img className={styles.searchIcon} alt="search" src={search} />
       </button>
