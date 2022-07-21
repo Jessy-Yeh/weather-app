@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import styles from "./Search.module.css";
+import search from "../../icons/rightarrow.svg";
 
 interface IProps {
   getWeather: () => void;
@@ -18,9 +20,11 @@ export const Search = ({ getWeather, setLocation }: IProps) => {
   }
 
   return (
-    <>
-      <input onChange={handleChange} />
-      <button onClick={handleClick}>GO</button>
-    </>
+    <div className={styles.container}>
+      <input className={styles.input} onChange={handleChange} />
+      <button className={styles.search} onClick={handleClick}>
+        <img className={styles.searchIcon} alt="search" src={search} />
+      </button>
+    </div>
   );
 };

@@ -20,18 +20,18 @@ export const Display = ({ currentData, locationData }: IProps) => {
       <img alt="weather" src={weatherImg}></img>
       <h3>{`${locationData.name}, ${locationData.country}`}</h3>
       <p>today is {currentData.condition.text}</p>
-      <p>
-        <img className={styles.Icon} alt="humidity" src={temperature} />
+      <p className={styles.description}>
+        <img className={styles.Icon} alt="humidity" src={temperature} />{" "}
         {currentData.temp_c}°C
       </p>
-      <p>
-        {" "}
-        <img className={styles.Icon} alt="humidity" src={man} />
+
+      <p className={styles.description}>
+        <img className={styles.Icon} alt="humidity" src={man} />{" "}
         {currentData.feelslike_c}°C
       </p>
 
-      <p>
-        <img className={styles.Icon} alt="humidity" src={humidity} />
+      <p className={styles.description}>
+        <img className={styles.Icon} alt="humidity" src={humidity} />{" "}
         {currentData.humidity}%
       </p>
     </div>

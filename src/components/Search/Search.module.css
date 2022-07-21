@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  padding: 0.3rem;
+  border-radius: 3px;
+  border: none;
+  /* border: 1px solid rgb(172, 170, 170); */
+  background-color: rgba(99, 87, 143, 0.5);
+  color: white;
+  margin-right: 0.5rem;
+  height: 33px;
+}
+
+.search {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchIcon {
+  width: 50px;
+}
+
+.searchIcon:hover {
+  animation: mymove 1s infinite;
+}
+
+@keyframes mymove {
+  50% {
+    transform: rotate(10deg);
+  }
+}
