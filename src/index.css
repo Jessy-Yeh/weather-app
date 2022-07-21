@@ -8,7 +8,7 @@ body {
   background: linear-gradient(to top left, #89d2dc 0%, #6564db 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
