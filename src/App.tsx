@@ -48,7 +48,7 @@ function App() {
       <h1>How's the Weather?</h1>
       <Search getWeather={getWeather} setLocation={setLocation} />
       {currentData === null ? (
-        <p>no search results</p>
+        <p className="reminder">search any city...</p>
       ) : (
         <Display
           currentData={currentData}
