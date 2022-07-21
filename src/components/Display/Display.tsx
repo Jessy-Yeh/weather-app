@@ -1,18 +1,18 @@
-import { ICurrentData, ILocationData } from "../../App";
+import { IWeatherData } from "../../App";
 import styles from "./Display.module.css";
 import humidity from "../../icons/humidity.png";
 import temperature from "../../icons/temperature.png";
 import man from "../../icons/man.png";
 import errorIcon from "../../icons/error.svg";
+import { DayWeather } from "../DayWeather/DayWeather";
 
 interface IProps {
-  currentData: ICurrentData | null;
-  locationData: ILocationData | null;
+  weatherData: IWeatherData | null;
   error: boolean;
 }
 
-export const Display = ({ currentData, locationData, error }: IProps) => {
-  if (!currentData || !locationData) return null;
+export const Display = ({ weatherData, error }: IProps) => {
+  if (!weatherData) return null;
 
   if (error === true) {
     return (
@@ -23,28 +23,44 @@ export const Display = ({ currentData, locationData, error }: IProps) => {
     );
   }
 
-  const iconUrl = currentData.condition.icon.substring(2);
+  const iconUrl = weatherData.current.condition.icon.substring(2);
   const weatherImg = `https://${iconUrl}`;
 
   return (
     <div className={styles.container}>
       <img alt="weather" src={weatherImg}></img>
-      <h3>{`${locationData.name}, ${locationData.country}`}</h3>
-      <p>Today is {currentData.condition.text}</p>
-      <p className={styles.description}>
-        <img className={styles.Icon} alt="humidity" src={temperature} />{" "}
-        {currentData.temp_c}°C
-      </p>
+      <h3>{`${weatherData.location.name}, ${weatherData.location.country}`}</h3>
+      <p>Today is {weatherData.current.condition.text}</p>
+      <div className={styles.descriptionContainer}>
+        <p className={styles.description}>
+          <img className={styles.Icon} alt="humidity" src={temperature} />{" "}
+          {weatherData.current.temp_c}°C
+        </p>
 
-      <p className={styles.description}>
-        <img className={styles.Icon} alt="humidity" src={man} />{" "}
-        {currentData.feelslike_c}°C
-      </p>
+        <p className={styles.description}>
+          <img className={styles.Icon} alt="humidity" src={man} />{" "}
+          {weatherData.current.feelslike_c}°C
+        </p>
 
-      <p className={styles.description}>
-        <img className={styles.Icon} alt="humidity" src={humidity} />{" "}
-        {currentData.humidity}%
-      </p>
+        <p className={styles.description}>
+          <img className={styles.Icon} alt="humidity" src={humidity} />{" "}
+          {weatherData.current.humidity}%
+        </p>
+      </div>
+
+      {weatherData.forecast.forecastday.map((item) => {
+        return (
+          <ul>
+            <DayWeather
+              date={item.date}
+              icon={item.day.condition.icon}
+              maxTemp={item.day.maxtemp_c}
+              minTemp={item.day.mintemp_c}
+              key={item.date}
+            />
+          </ul>
+        );
+      })}
     </div>
   );
 };

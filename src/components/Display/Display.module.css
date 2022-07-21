@@ -3,11 +3,20 @@
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 10px;
+  padding: 1rem 2rem;
+  width: 60vw;
+  text-align: center;
 }
 
 .Icon {
   width: 30px;
   height: 30px;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
 }
 
 .description {
