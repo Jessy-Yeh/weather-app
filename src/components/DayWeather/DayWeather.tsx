@@ -1,3 +1,5 @@
+import styles from "../DayWeather/DayWeather.module.css";
+
 interface IProps {
   date: string;
   maxTemp: number;
@@ -9,12 +11,17 @@ interface IProps {
 export const DayWeather = ({ date, maxTemp, minTemp, icon }: IProps) => {
   const iconUrl = icon.substring(2);
   const weatherImg = `https://${iconUrl}`;
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const d = new Date(date);
+  const dayName = days[d.getDay()];
   return (
-    <li key={`${date}weather`}>
-      <h3>{date}</h3>
+    <li className={styles.li} key={`${date}weather`}>
+      <h3 className={styles.date}>{dayName}</h3>
       <img alt="weather" src={weatherImg} />
-      <p>{maxTemp}</p>
-      <p>{minTemp}</p>
+      <div className={styles.temps}>
+        <p className={`${styles.temp} ${styles.highTemp}`}>{maxTemp}°</p>
+        <p className={styles.temp}>{minTemp}°</p>
+      </div>
     </li>
   );
 };

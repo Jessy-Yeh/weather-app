@@ -1,0 +1,20 @@
+.temps {
+  display: flex;
+  justify-content: space-around;
+}
+
+.date {
+  margin-bottom: 0.3px;
+}
+
+.temp {
+  margin-top: 0.3px;
+}
+
+.highTemp {
+  font-weight: bold;
+}
+
+.li {
+  width: 100px;
+}

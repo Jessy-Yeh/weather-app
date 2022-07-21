@@ -36,3 +36,17 @@
   width: 50px;
   margin-bottom: 1rem;
 }
+
+.ul {
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.location {
+  margin-top: 0.5px;
+}

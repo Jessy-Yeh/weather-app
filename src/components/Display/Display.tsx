@@ -29,7 +29,9 @@ export const Display = ({ weatherData, error }: IProps) => {
   return (
     <div className={styles.container}>
       <img alt="weather" src={weatherImg}></img>
-      <h3>{`${weatherData.location.name}, ${weatherData.location.country}`}</h3>
+      <h3
+        className={styles.location}
+      >{`${weatherData.location.name}, ${weatherData.location.country}`}</h3>
       <p>Today is {weatherData.current.condition.text}</p>
       <div className={styles.descriptionContainer}>
         <p className={styles.description}>
@@ -48,9 +50,9 @@ export const Display = ({ weatherData, error }: IProps) => {
         </p>
       </div>
 
-      {weatherData.forecast.forecastday.map((item) => {
-        return (
-          <ul>
+      <ul className={styles.ul}>
+        {weatherData.forecast.forecastday.map((item) => {
+          return (
             <DayWeather
               date={item.date}
               icon={item.day.condition.icon}
@@ -58,9 +60,9 @@ export const Display = ({ weatherData, error }: IProps) => {
               minTemp={item.day.mintemp_c}
               key={item.date}
             />
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
     </div>
   );
 };
