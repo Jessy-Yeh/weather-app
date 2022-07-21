@@ -8,16 +8,24 @@ interface ICondition {
   icon: string;
 }
 
-export interface IData {
+export interface ICurrentData {
   condition: ICondition;
   temp_c: number;
   feelslike_c: number;
   humidity: number;
+  pressure_mb?: number;
+}
+
+export interface ILocationData {
+  country: string;
+  name: string;
+  localtime: string;
 }
 
 function App() {
   const [location, setLocation] = useState<string | null>(null);
-  const [data, setData] = useState<IData | null>(null);
+  const [currentData, setCurrentData] = useState<ICurrentData | null>(null);
+  const [locationData, setLocationData] = useState<ILocationData | null>(null);
 
   const url = `https://api.weatherapi.com/v1/current.json?key=d32c84d25a194393b5f92754221807&q=${location}`;
 
@@ -25,7 +33,8 @@ function App() {
     try {
       const response = await axios.get(url);
       console.log(response);
-      setData(response.data.current);
+      setCurrentData(response.data.current);
+      setLocationData(response.data.location);
     } catch (error) {
       console.error(error);
     }
@@ -33,9 +42,13 @@ function App() {
 
   return (
     <>
-      <h1>Weather</h1>
+      <h1>How's the Weather?</h1>
       <Search getWeather={getWeather} setLocation={setLocation} />
-      {data === null ? <p>no search results</p> : <Display data={data} />}
+      {currentData === null ? (
+        <p>no search results</p>
+      ) : (
+        <Display currentData={currentData} locationData={locationData} />
+      )}
     </>
   );
 }
