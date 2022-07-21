@@ -13,6 +13,7 @@ export const Search = ({ getWeather, setLocation }: IProps) => {
   function searchWeather(e: any) {
     if (e.code === "Enter") {
       getWeather();
+      e.target.value = "";
     }
   }
 
