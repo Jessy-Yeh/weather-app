@@ -26,6 +26,7 @@ function App() {
   const [location, setLocation] = useState<string | null>(null);
   const [currentData, setCurrentData] = useState<ICurrentData | null>(null);
   const [locationData, setLocationData] = useState<ILocationData | null>(null);
+  const [error, setError] = useState(false);
 
   const url = `https://api.weatherapi.com/v1/current.json?key=d32c84d25a194393b5f92754221807&q=${location}`;
 
@@ -33,10 +34,12 @@ function App() {
     try {
       const response = await axios.get(url);
       console.log(response);
+      setError(false);
       setCurrentData(response.data.current);
       setLocationData(response.data.location);
     } catch (error) {
       console.error(error);
+      setError(true);
     }
   }
 
@@ -47,7 +50,11 @@ function App() {
       {currentData === null ? (
         <p>no search results</p>
       ) : (
-        <Display currentData={currentData} locationData={locationData} />
+        <Display
+          currentData={currentData}
+          locationData={locationData}
+          error={error}
+        />
       )}
     </>
   );
