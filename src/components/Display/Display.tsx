@@ -12,9 +12,7 @@ interface IProps {
 }
 
 export const Display = ({ weatherData, error }: IProps) => {
-  if (!weatherData) return null;
-
-  if (error === true) {
+  if (error) {
     return (
       <p className={styles.error}>
         <img className={styles.errorIcon} alt="error" src={errorIcon} />
@@ -22,6 +20,8 @@ export const Display = ({ weatherData, error }: IProps) => {
       </p>
     );
   }
+
+  if (!weatherData) return null;
 
   const iconUrl = weatherData.current.condition.icon.substring(2);
   const weatherImg = `https://${iconUrl}`;

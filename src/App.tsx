@@ -45,7 +45,7 @@ function App() {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const [error, setError] = useState(false);
 
-  const url = `https://api.weatherapi.com/v1/forecast.json?key=d32c84d25a194393b5f92754221807&q=${location}&days=5`;
+  const url = `https://api.weatherapi.com/v1/forecast.json?key=d32c84d25a194393b5f92754221807&q=${location}&days=3`;
 
   async function getWeather() {
     try {
@@ -55,8 +55,8 @@ function App() {
       setWeatherData(response.data);
     } catch (error) {
       console.error(error);
+      // setWeatherData(null);
       setError(true);
-      setWeatherData(null);
     }
   }
 
@@ -64,10 +64,10 @@ function App() {
     <>
       <h1>How's the Weather?</h1>
       <Search getWeather={getWeather} setLocation={setLocation} />
-      {weatherData === null ? (
-        <p className="reminder">search any city...</p>
-      ) : (
+      {weatherData ? (
         <Display weatherData={weatherData} error={error} />
+      ) : (
+        <p className="reminder">search any city...</p>
       )}
     </>
   );

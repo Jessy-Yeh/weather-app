@@ -18,3 +18,17 @@
 .li {
   width: 100px;
 }
+
+@media screen and (max-width: 600px) {
+  .li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50vw;
+  }
+
+  .date,
+  .temp {
+    margin: 0px;
+  }
+}
