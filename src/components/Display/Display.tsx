@@ -1,18 +1,20 @@
 import { IWeatherData } from "../../App";
-import styles from "./Display.module.css";
+import { DayWeather } from "../DayWeather/DayWeather";
+
 import humidity from "../../icons/humidity.png";
 import temperature from "../../icons/temperature.png";
 import man from "../../icons/man.png";
 import errorIcon from "../../icons/error.svg";
-import { DayWeather } from "../DayWeather/DayWeather";
+
+import styles from "./Display.module.css";
 
 interface IProps {
   weatherData: IWeatherData | null;
-  error: boolean;
+  isError: boolean;
 }
 
-export const Display = ({ weatherData, error }: IProps) => {
-  if (error) {
+export const Display = ({ weatherData, isError }: IProps) => {
+  if (isError) {
     return (
       <p className={styles.error}>
         <img className={styles.errorIcon} alt="error" src={errorIcon} />

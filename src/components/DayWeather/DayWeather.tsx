@@ -1,4 +1,4 @@
-import styles from "../DayWeather/DayWeather.module.css";
+import styles from "./DayWeather.module.css";
 
 interface IProps {
   date: string;
