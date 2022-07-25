@@ -1,37 +1,44 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import styles from "./Search.module.css";
+import { useState } from "react";
+
 import search from "../../icons/rightarrow.svg";
 
+import styles from "./Search.module.css";
+
 interface IProps {
-  getWeather: () => void;
-  setLocation: Dispatch<SetStateAction<string | null>>;
+  getWeather: (location: string) => void;
+  getBackgroundImage: (location: string) => void;
 }
 
-export const Search = ({ getWeather, setLocation }: IProps) => {
+export const Search = ({ getWeather, getBackgroundImage }: IProps) => {
   const [textInput, setTextInput] = useState("");
 
-  function searchWeather(e: any) {
-    if (e.code === "Enter") {
-      getWeather();
-      e.target.value = "";
-    }
+  function searchWeather() {
+    getWeather(textInput);
+    getBackgroundImage(textInput);
+    setTextInput("");
   }
 
   function handleClick() {
-    getWeather();
+    searchWeather();
+  }
+
+  function handleEnter(e: any) {
+    if (e.code === "Enter") {
+      searchWeather();
+    }
   }
 
   function handleChange(e: any) {
     setTextInput(e.target.value);
-    setLocation(textInput);
   }
 
   return (
     <div className={styles.container}>
       <input
         className={styles.input}
-        onKeyUp={searchWeather}
+        onKeyUp={handleEnter}
         onChange={handleChange}
+        value={textInput}
       />
       <button className={styles.search} onClick={handleClick}>
         <img className={styles.searchIcon} alt="search" src={search} />
