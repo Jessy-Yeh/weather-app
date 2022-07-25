@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Search } from "./components/Search/Search";
 import { Display } from "./components/Display/Display";
+import { Background } from "./components/Background/Background";
 
 export interface ICurrentData {
   condition: {
@@ -40,36 +41,47 @@ export interface IWeatherData {
 }
 
 function App() {
-  const [location, setLocation] = useState<string | null>(null);
-
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [backgroundImg, setBackgroundImg] = useState<string | null>(null);
 
-  const url = `https://api.weatherapi.com/v1/forecast.json?key=d32c84d25a194393b5f92754221807&q=${location}&days=3`;
+  async function getWeather(location: string) {
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=d32c84d25a194393b5f92754221807&q=${location}&days=3`;
 
-  async function getWeather() {
     try {
       const response = await axios.get(url);
       console.log(response);
-      setError(false);
+      setIsError(false);
       setWeatherData(response.data);
     } catch (error) {
       console.error(error);
-      // setWeatherData(null);
-      setError(true);
+      setIsError(true);
+    }
+  }
+
+  async function getBackgroundImage(location: string) {
+    const url = `https://api.unsplash.com/search/photos?client_id=ll_NH5KWzn6lpZGVnNQb53PKH65mFhVVGIRCGhPjsT0&query=${location}`;
+
+    try {
+      const response = await axios.get(url);
+      console.log(response);
+      setBackgroundImg(response.data.results[0].urls.regular);
+    } catch (error) {
+      console.log(error);
+      setBackgroundImg(null);
     }
   }
 
   return (
-    <>
+    <Background backgroundImg={backgroundImg}>
       <h1>How's the Weather?</h1>
-      <Search getWeather={getWeather} setLocation={setLocation} />
-      {weatherData ? (
-        <Display weatherData={weatherData} error={error} />
+      <Search getWeather={getWeather} getBackgroundImage={getBackgroundImage} />
+      {weatherData || isError ? (
+        <Display weatherData={weatherData} isError={isError} />
       ) : (
         <p className="reminder">search any city...</p>
       )}
-    </>
+    </Background>
   );
 }
 
