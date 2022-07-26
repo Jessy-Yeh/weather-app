@@ -41,7 +41,8 @@ export const Search = ({ getWeather, getBackgroundImage }: IProps) => {
         value={textInput}
       />
       <button className={styles.search} onClick={handleClick}>
-        <img className={styles.searchIcon} alt="search" src={search} />
+        {/* <img className={styles.searchIcon} alt="search" src={search} /> */}
+        &gt;
       </button>
     </div>
   );

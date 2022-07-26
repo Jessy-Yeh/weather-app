@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import axios from "axios";
+
 import { Search } from "./components/Search/Search";
 import { Display } from "./components/Display/Display";
 import { Background } from "./components/Background/Background";
@@ -46,7 +48,7 @@ function App() {
   const [backgroundImg, setBackgroundImg] = useState<string | null>(null);
 
   async function getWeather(location: string) {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=d32c84d25a194393b5f92754221807&q=${location}&days=3`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${location}&days=3`;
 
     try {
       const response = await axios.get(url);
@@ -60,7 +62,7 @@ function App() {
   }
 
   async function getBackgroundImage(location: string) {
-    const url = `https://api.unsplash.com/search/photos?client_id=ll_NH5KWzn6lpZGVnNQb53PKH65mFhVVGIRCGhPjsT0&query=${location}`;
+    const url = `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_IMG_API_KEY}&query=${location}`;
 
     try {
       const response = await axios.get(url);
@@ -74,8 +76,13 @@ function App() {
 
   return (
     <Background backgroundImg={backgroundImg}>
-      <h1>How's the Weather?</h1>
-      <Search getWeather={getWeather} getBackgroundImage={getBackgroundImage} />
+      <div className="search-container">
+        <h1>How's the Weather?</h1>
+        <Search
+          getWeather={getWeather}
+          getBackgroundImage={getBackgroundImage}
+        />
+      </div>
       {weatherData || isError ? (
         <Display weatherData={weatherData} isError={isError} />
       ) : (

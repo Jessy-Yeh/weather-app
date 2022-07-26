@@ -17,8 +17,7 @@ body {
   margin-top: 3rem;
 }
 
-@media screen and (max-width: 600px) {
-  body {
-    padding: 3rem 0;
-  }
+h1 {
+  color: #ffffff;
+  text-shadow: #474747 3px 5px 2px;
 }
